@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Speech Recognition in Python</title>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/index.css') }}">
+    <!--<link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">--->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+    
+    
+</head>
+<body>
+    <div id="speechContainer">
+    <div id="one">
+        <div id="title">
+            <h3>Upload audio file</h3>
+        </div>
+    </div>
+    <div id="two">
+        <form method="post" enctype="multipart/form-data">
+            <input type="file" name="file" id="upload" />
+            <br>
+            <br>
+    
+    
+            <script>
+                function changeHandler({target}){
+                    if(!target.files.length) return;
+
+                    const urlObj = URL.createObjectURL(target.files[0]);
+
+                    const audio = document.createElement("audio");
+
+                    audio.addEventListener("load", () => {
+                        URL.revokeObjectURL(urlObj);
+                    });
+
+                    //document.body.appendChild(audio);
+                    document.getElementById("two").append(audio);
+
+                    audio.controls = "true";
+
+                    audio.src = urlObj;
+                }
+
+                document
+                .getElementById("upload")
+                .addEventListener("change", changeHandler);
+            </script>
+            
+            </div>
+            <input type="submit" id="submitButton" value="Detect Emotion"/>
+        </form>
+    
+        
+        
+
+        
+        
+        {% if transcript=="Neutral" %}
+            <div id="Neutral"></div>
+            <style>
+                #speechContainer{
+                    height: 33rem !important;
+                }
+                body{
+                    transition: background-color 2s ease-out ;
+                    transition: background-image 2s ease-out ;
+                    background-image: none;
+                    background-color:#fcd1d1;
+                    
+                }
+                
+            </style>
+        {% endif %} 
+        {% if transcript=="Happy" %}
+            <style>
+                #speechContainer{
+                    height: 33rem !important;
+                }
+                body{
+                    background-image: none;
+                    background-color:#f9f7cf;
+                    transition: background-color 2s ease-out ;
+                    transition: background-image 2s ease-out ;
+                    
+                }
+               
+            </style>
+        {% endif %} 
+        {% if transcript=="Sad" %}
+            <style>
+                #speechContainer{
+                    height: 33rem !important;
+                }
+                body{
+                    transition: background-color 1.5s ease-out ;
+                    background-image: none;
+                    background-color:#b6c9f0;
+                    
+                }
+                
+            </style>
+        {% endif %} 
+        {% if transcript=="Angry" %}
+            <style>
+                #speechContainer{
+                    height: 33rem !important;
+                }
+                body{
+                    transition: background-color 1.5s ease-out ;
+                    background-image: none;
+                    background-color:#f55c47;    
+                }
+               
+                
+            </style>
+        {% endif %} 
+        {% if transcript=="Fear" %}
+            <style>
+                #speechContainer{
+                    height: 33rem !important;
+                }
+                body{
+                    transition: background-color 1.5s ease-out ;
+                    background-image: none;
+                    background-color:black;    
+                }
+                
+               
+            </style>
+        {% endif %} 
+        {% if transcript=="Disgust" %}
+            <style>
+                #speechContainer{
+                    height: 33rem !important;
+                }
+                body{
+                    transition: background-color 1.5s ease-out ;
+                    background-image: none;
+                    background-color:#ccffbd;    
+                }
+                
+            </style>
+        {% endif %} 
+        {% if transcript=="Surprise" %}
+            <style>
+                #speechContainer{
+                    height: 33rem !important;
+                }
+                body{
+                    transition: background-color 1.5s ease-out ;
+                    background-image: none;
+                    background-color:#ffc93c;    
+                }
+               
+                
+            </style>
+        {% endif %} 
+        {% if transcript != "" %}
+            <div id="speechTranscriptContainer">
+                <div id="detected">The detected emotion of the audio is :</div>
+                <p id="speechText">{{ transcript }}</p>   
+            </div>
+        {% endif %}
+    
+        
+        
+    </div>
+
+</body>
+</html>
