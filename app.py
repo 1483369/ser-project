@@ -8,7 +8,7 @@ from scipy.stats import zscore
 
 app = Flask(__name__) 
 
-@app.route("/", methods=["GET", "POST"])
+@app.route("/", methods=["POST","GET"])
 def index():
     transcript = ""
     if request.method == "POST":
